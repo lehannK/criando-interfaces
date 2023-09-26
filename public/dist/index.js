@@ -1,5 +1,7 @@
 let profilesList = [];
+let repositoriesList = [];
 const url = "https://api.github.com/users/lehannK";
+const urlRepos = url + "/repos";
 async function getGithubProfile(url) {
     try {
         const response = await fetch(url);
@@ -22,8 +24,21 @@ async function getGithubProfile(url) {
         return error;
     }
 }
-getGithubProfile(url)
-    .then((profileReturned) => {
-    console.log(profileReturned);
-})
-    .catch((error) => console.error(error));
+async function getGithubRepos(urlRepos) {
+    try {
+        const response = await fetch(urlRepos);
+        if (response.status !== 200) {
+            throw new Error(`Erro na requisição: ${response.status}`);
+        }
+        const data = await response.json();
+    }
+    catch (error) {
+        console.error("erro");
+    }
+}
+// getGithubProfile(url)
+//   .then((profileReturned) => console.log(profileReturned))
+//   .catch((error) => console.error(error));
+getGithubRepos(urlRepos);
+//   .then((repositor) => console.log(profileReturned))
+//   .catch((error) => console.error(error));

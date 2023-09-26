@@ -6,8 +6,16 @@ interface Profile {
   public_repos: number;
   repos_url: string;
 }
+interface Repos {
+  name: string;
+  description: string;
+  fork: boolean;
+  stargazers_count: number;
+}
 let profilesList: Profile[] = [];
+let repositoriesList: Repos[] = [];
 const url: string = "https://api.github.com/users/lehannK";
+const urlRepos: string = url + "/repos";
 
 async function getGithubProfile(url: string) {
   try {
@@ -31,8 +39,22 @@ async function getGithubProfile(url: string) {
   }
 }
 
-getGithubProfile(url)
-  .then((profileReturned) => {
-    console.log(profileReturned);
-  })
-  .catch((error) => console.error(error));
+async function getGithubRepos(urlRepos: string) {
+  try {
+    const response = await fetch(urlRepos);
+    if (response.status !== 200) {
+      throw new Error(`Erro na requisição: ${response.status}`);
+    }
+    const data = await response.json();
+  } catch (error) {
+    console.error("erro");
+  }
+}
+
+// getGithubProfile(url)
+//   .then((profileReturned) => console.log(profileReturned))
+//   .catch((error) => console.error(error));
+
+getGithubRepos(urlRepos);
+//   .then((repositor) => console.log(profileReturned))
+//   .catch((error) => console.error(error));
