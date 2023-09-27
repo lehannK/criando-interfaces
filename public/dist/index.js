@@ -1,6 +1,7 @@
 let profilesList = [];
 let repositoriesList = [];
 async function main() {
+    //mostra todos os usuários salvos
     await Promise.all([
         getGithubProfile("https://api.github.com/users/lehannK"),
         getGithubProfile("https://api.github.com/users/rodolfosantos23"),
